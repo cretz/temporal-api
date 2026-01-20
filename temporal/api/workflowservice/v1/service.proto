@@ -1240,6 +1240,18 @@ service WorkflowService {
         };
     }
 
+    rpc ListTaskQueueConfigs (ListTaskQueueConfigsRequest) returns (ListTaskQueueConfigsResponse) {
+        // ...
+    }
+
+    rpc DescribeTaskQueueConfig (DescribeTaskQueueConfigRequest) returns (DescribeTaskQueueConfigResponse) {
+        // ...
+    }
+
+    rpc DeleteTaskQueueConfig (DeleteTaskQueueConfigRequest) returns (DeleteTaskQueueConfigResponse) {
+        // ...
+    }
+
     // FetchWorkerConfig returns the worker configuration for a specific worker.
     rpc FetchWorkerConfig (FetchWorkerConfigRequest) returns (FetchWorkerConfigResponse) {
         option (google.api.http) = {

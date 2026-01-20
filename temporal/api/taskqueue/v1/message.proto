@@ -345,4 +345,7 @@ message TaskQueueConfig {
     RateLimitConfig fairness_keys_rate_limit_default = 2;
     // If set, overrides the fairness weights for the corresponding fairness keys.
     map<string, float> fairness_weight_overrides = 3;
+    // If present, this is an on-demand task queue (i.e. server)
+    // TODO: Need circular dep undo or move server-owned stuff in here
+    temporal.api.worker.v1.ServerOwnedWorkerConfig server_owned_config = 9;
 }

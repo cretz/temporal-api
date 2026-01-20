@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package temporal.api.worker.v1;
+
+option go_package = "go.temporal.io/api/worker/v1;worker";
+option java_package = "io.temporal.api.worker.v1";
+option java_multiple_files = true;
+option java_outer_classname = "MessageProto";
+option ruby_package = "Temporalio::Api::Worker::V1";
+option csharp_namespace = "Temporalio.Api.Worker.V1";
+
+import "temporal/api/common/v1/message.proto";
+import "temporal/api/taskqueue/v1/message.proto";
+
+// User provided configuration
+message ServerOwnedWorkerConfig {
+    string provider_nexus_endpoint = 1;
+
+    temporal.api.common.v1.Payload provider_detail = 2;
+
+    // TODO: Options users might want to set for the worker...
+    // (not really much here, they can do this in code)
+
+    // TODO: Options users might want to give the server to configure scaling algorithm
+    //int32 max_concurrent_tasks = ...
+    //float max_tasks_per_second = ...
+    //float max_workers_per_second = ...
+}
+
+// This is sent to Nexus endpoint when scaling is needed, not referenced in Temporal API
+message ServerOwnedWorkerStartAction {
+    temporal.api.taskqueue.v1.TaskQueue task_queue = 1;
+
+    ServerOwnedWorkerConfig config = 2;
+
+    string worker_instance_key = 3;
+
+    // Can accept eager activity work instead of polling...
+    // TODO: Would have to do some proto dances to get this to be non-circular
+    //repeated PollActivityTaskQueueResponse eager_activity_tasks = ...
+
+    // TODO: Lots of worker options...
+    //int32 max_pollers = ...
+}
+
+// Structured payload body for AWS Lambda, not used by server in any way
+message AwsLambdaProviderDetail {
+    // TODO: info needed to make Lambda function invocation...
+}
