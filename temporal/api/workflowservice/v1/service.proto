@@ -10,6 +10,7 @@ option ruby_package = "Temporalio::Api::WorkflowService::V1";
 option csharp_namespace = "Temporalio.Api.WorkflowService.V1";
 
 
+import "temporal/api/protometa/v1/annotations.proto";
 import "temporal/api/workflowservice/v1/request_response.proto";
 import "google/api/annotations.proto";
 
@@ -101,6 +102,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_id}"
+        };
     }
 
     // ExecuteMultiOperation executes multiple operations within a single workflow.
@@ -132,6 +137,10 @@ service WorkflowService {
                 get: "/api/v1/namespaces/{namespace}/workflows/{execution.workflow_id}/history"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{execution.workflow_id}"
+        };
     }
 
     // GetWorkflowExecutionHistoryReverse returns the history of specified workflow execution in reverse
@@ -143,6 +152,10 @@ service WorkflowService {
             additional_bindings {
                 get: "/api/v1/namespaces/{namespace}/workflows/{execution.workflow_id}/history-reverse"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{execution.workflow_id}"
         };
     }
 
@@ -241,6 +254,11 @@ service WorkflowService {
                 body: "*"
             }
         };
+        // TODO: This method has both workflow_id and activity_id. Decide how to handle multiple resource IDs.
+        // option (temporal.api.protometa.v1.request_header) = {
+        //     header: "temporal-resource-id"
+        //     value: "activity:{activity_id}"
+        // };
     }
 
     // RespondActivityTaskCompleted is called by workers when they successfully complete an activity
@@ -274,6 +292,11 @@ service WorkflowService {
                 body: "*"
             }
         };
+        // TODO: This method has both workflow_id and activity_id. Decide how to handle multiple resource IDs.
+        // option (temporal.api.protometa.v1.request_header) = {
+        //     header: "temporal-resource-id"
+        //     value: "activity:{activity_id}"
+        // };
     }
 
     // RespondActivityTaskFailed is called by workers when processing an activity task fails.
@@ -306,6 +329,11 @@ service WorkflowService {
                 body: "*"
             }
         };
+        // TODO: This method has both workflow_id and activity_id. Decide how to handle multiple resource IDs.
+        // option (temporal.api.protometa.v1.request_header) = {
+        //     header: "temporal-resource-id"
+        //     value: "activity:{activity_id}"
+        // };
     }
 
     // RespondActivityTaskFailed is called by workers when processing an activity task fails.
@@ -338,6 +366,11 @@ service WorkflowService {
                 body: "*"
             }
         };
+        // TODO: This method has both workflow_id and activity_id. Decide how to handle multiple resource IDs.
+        // option (temporal.api.protometa.v1.request_header) = {
+        //     header: "temporal-resource-id"
+        //     value: "activity:{activity_id}"
+        // };
     }
 
     // RequestCancelWorkflowExecution is called by workers when they want to request cancellation of
@@ -355,6 +388,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
+        };
     }
 
     // SignalWorkflowExecution is used to send a signal to a running workflow execution.
@@ -369,6 +406,10 @@ service WorkflowService {
                 post: "/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/signal/{signal_name}"
                 body: "*"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
         };
     }
 
@@ -393,6 +434,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_id}"
+        };
     }
 
     // ResetWorkflowExecution will reset an existing workflow execution to a specified
@@ -409,6 +454,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
+        };
     }
 
     // TerminateWorkflowExecution terminates an existing workflow execution by recording a
@@ -422,6 +471,10 @@ service WorkflowService {
                 post: "/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/terminate"
                 body: "*"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
         };
     }
 
@@ -544,6 +597,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{execution.workflow_id}"
+        };
     }
 
     // DescribeWorkflowExecution returns information about the specified workflow execution.
@@ -553,6 +610,10 @@ service WorkflowService {
             additional_bindings {
                 get: "/api/v1/namespaces/{namespace}/workflows/{execution.workflow_id}"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{execution.workflow_id}"
         };
     }
 
@@ -955,6 +1016,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
+        };
     }
 
     // Polls a Workflow Execution for the outcome of a Workflow Update
@@ -1053,6 +1118,10 @@ service WorkflowService {
                 post: "/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/update-options"
                 body: "*"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_execution.workflow_id}"
         };
     }
 
@@ -1201,6 +1270,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{execution.workflow_id}"
+        };
     }
 
     // WorkerHeartbeat receive heartbeat request from the worker.
@@ -1289,6 +1362,10 @@ service WorkflowService {
             post: "/namespaces/{namespace}/workflows/{workflow_id}/pause"
             body: "*"
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_id}"
+        };
     }
 
     // Note: This is an experimental API and the behavior may change in a future release.
@@ -1300,6 +1377,10 @@ service WorkflowService {
         option (google.api.http) = {
             post: "/namespaces/{namespace}/workflows/{workflow_id}/unpause"
             body: "*"
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "workflow:{workflow_id}"
         };
     }
 
@@ -1316,6 +1397,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "activity:{activity_id}"
+        };
     }
 
     // DescribeActivityExecution returns information about an activity execution.
@@ -1330,6 +1415,10 @@ service WorkflowService {
                 get: "/api/v1/namespaces/{namespace}/activities/{activity_id}"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "activity:{activity_id}"
+        };
     }
 
     // PollActivityExecution long-polls for an activity execution to complete and returns the
@@ -1340,6 +1429,10 @@ service WorkflowService {
             additional_bindings {
                 get: "/api/v1/namespaces/{namespace}/activities/{activity_id}/outcome"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "activity:{activity_id}"
         };
     }
 
@@ -1378,6 +1471,10 @@ service WorkflowService {
                 body: "*"
             }
         };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "activity:{activity_id}"
+        };
     }
 
     // TerminateActivityExecution terminates an existing activity execution immediately.
@@ -1392,6 +1489,10 @@ service WorkflowService {
                 post: "/api/v1/namespaces/{namespace}/activities/{activity_id}/terminate"
                 body: "*"
             }
+        };
+        option (temporal.api.protometa.v1.request_header) = {
+            header: "temporal-resource-id"
+            value: "activity:{activity_id}"
         };
     }
 
